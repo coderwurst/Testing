@@ -23,5 +23,21 @@ public class Calculator {
 		// remove the value at the top of the stack
 		values.pop();
 	}
+	
+	public void execute(String command) {
+		Operation operation = null;
+		if ("+".equals(command)) {
+			operation = new AddOperation();		
+		} else if ("-".equals(command)) {
+			operation = new SubtractOperation();		
+		} else if ("*".equals(command)) {
+			operation = new MultiplicationOperation();		
+		} else if ("/".equals(command)) {
+			operation = new DivisionOperation();		
+		} else if ("^".equals(command)) {
+			operation = new SquareOperation();		
+		}
+		operation.apply(values);
+	}
 
 }

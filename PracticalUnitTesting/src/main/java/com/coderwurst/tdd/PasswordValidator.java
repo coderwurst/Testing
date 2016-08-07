@@ -2,35 +2,27 @@ package com.coderwurst.tdd;
 
 public class PasswordValidator {
 	
+	private static final int MIN_LENGTH = 5;
+	private static final String UNDERSCORE = "_";
+
 	public PasswordValidator(String password) {
-		if (password.length() <= 5) {
+		if (password.length() <= MIN_LENGTH) {
 			throw new IllegalArgumentException("Password must contain at least 5 characters");
 		} else if (checkForDigits(password)) {
 			throw new IllegalArgumentException("Password must contain at least 4 digits");
-		} else if (password.contains("_")) {
+		} else if (password.contains(UNDERSCORE)) {
 			throw new IllegalArgumentException("Password cannot contain any underscores");
-		} else if (checkForUpperAndLowerCase(password)) {
+		} else if (!hasUpperCase(password) || !hasLowerCase(password)) {
 			throw new IllegalArgumentException("Password must contain lower and upper case chars");
 		}
 	}
-
-	private boolean checkForUpperAndLowerCase(String password) {
-		if (!hasUpperCase(password) || !hasLowerCase(password)) {
-			return false;
-		}
-		return true;
-	}
 	
-	private boolean hasUpperCase(CharSequence data) {
-	    String password = String.valueOf(data);
-	    boolean hasUppercase = !password.equals(password.toLowerCase());
-	    return hasUppercase;
+	private boolean hasUpperCase(String password) {
+	    return !password.equals(password.toLowerCase());
 	}
 
-	private boolean hasLowerCase(CharSequence data) {
-	    String password = String.valueOf(data);
-	    boolean hasLowercase = !password.equals(password.toUpperCase());
-	    return hasLowercase;
+	private boolean hasLowerCase(String password) {
+	    return !password.equals(password.toUpperCase());
 	}
 
 	private boolean checkForDigits(String password) {

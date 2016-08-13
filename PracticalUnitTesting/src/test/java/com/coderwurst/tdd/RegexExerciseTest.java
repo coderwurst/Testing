@@ -24,4 +24,18 @@ public class RegexExerciseTest {
 		assertFalse(result);
 	}
 	
+	@Test
+	public void testReturnsTrueForStringWithThreeDigits() {
+		boolean result = regex.containsThreeDigits("abc123");
+		
+		assertTrue(result);
+	}
+	
+	@Test
+	public void testReturnsFalseForStringWithLessThanThreeDigits() {
+		boolean result = regex.containsThreeDigits("abc12");
+		
+		assertFalse(result);
+	}
+	
 }

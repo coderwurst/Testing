@@ -17,9 +17,11 @@ public class RegexExerciseTest {
 	
 	public Object [] validTestStrings() {
 		return new Object [] {
-				new Object [] {"123"},
-				new Object [] {"somewhere154digit"},
-				new Object [] {"morethan123456789"}
+				new Object [] {"123", "123"},
+				new Object [] {"somewhere154digit", "154"},
+				new Object [] {"cdefg 345 12bb23", "345"},
+				new Object [] {"cdefg 345 12bbb33 678tt", "345, 678"},
+				new Object [] {"morethan123456789", "123, 456, 789"}
 		};
 	}
 	
@@ -27,28 +29,15 @@ public class RegexExerciseTest {
 		return new Object [] {
 				new Object [] {"blah blah"},
 				new Object [] {"noDigitsHere"},
+				new Object [] {"abc 12"},
 				new Object [] {"one two three"}
 		};
 	}
 	
 	@Test
-	public void testReturnsTrueWhenStringContainsDigits() {
-		boolean result = regex.containsDigits("abc123");
-		
-		assertTrue(result);
-	}
-	
-	@Test
-	public void testReturnsFalseWhenStringContainsDigits() {
-		boolean result = regex.containsDigits("abcdef");
-		
-		assertFalse(result);
-	}
-	
-	@Test
 	@Parameters(method = "validTestStrings")
-	public void testReturnsTrueForStringWithThreeDigits(String test) {
-		boolean result = regex.containsThreeDigits(test);
+	public void testReturnsTrueForStringWithThreeDigits(String test, String value) {
+		boolean result = regex.containsThreeDigitsBesideEachOther(test);
 		
 		assertTrue(result);
 	}
@@ -56,9 +45,17 @@ public class RegexExerciseTest {
 	@Test
 	@Parameters(method = "invalidTestStrings")
 	public void testReturnsFalseForStringWithLessThanThreeDigits(String test) {
-		boolean result = regex.containsThreeDigits(test);
+		boolean result = regex.containsThreeDigitsBesideEachOther(test);
 		
 		assertFalse(result);
+	}
+	
+	@Test
+	@Parameters(method = "validTestStrings")
+	public void testRreturnAllNumbersWithThreeOrMoreDigits(String test, String value) {
+		String result = regex.returnAllNumbersWithThreeOrMoreDigits(test);
+		
+		assertEquals(value, result);
 	}
 	
 }

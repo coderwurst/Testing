@@ -13,11 +13,7 @@ public class RegexExercise {
 			// test regex
 			if (containsThreeDigitsBesideEachOther(substring)) {
 				// conc result to result string
-				if (result.isEmpty()) {
-					result = substring;
-				} else {
-					result = result + ", " + substring;
-				}
+				appendResults(substring);
 				// remove added chars
 				test = test.replace(substring, "");
 				// test if necessary to repeat
@@ -26,10 +22,19 @@ public class RegexExercise {
 				}
 				break;
 			} else {
+				// remove first char in string
 				test = test.substring(1);
 			}
 		}
 		return result;
+	}
+
+	private void appendResults(String substring) {
+		if (result.isEmpty()) {
+			result = substring;
+		} else {
+			result = result + ", " + substring;
+		}
 	}
 
 	public boolean containsThreeDigitsBesideEachOther(String test) {

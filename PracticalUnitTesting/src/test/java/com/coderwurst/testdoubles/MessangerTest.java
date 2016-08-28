@@ -1,18 +1,20 @@
 package com.coderwurst.testdoubles;
 
-import static org.junit.Assert.*;
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.mockito.Mockito;
 
 
 public class MessangerTest {
 	
+	private static final String CLIENT_EMAIL = "me@mail.com";
+	private static final String MESAGE_CONTENTS = "... mesage contents...";
+
 	/* 
-	 * DUMMY mock - needed as a param but no other action carried out on it; 
+	 * DUMMY - needed as a param but no other action carried out on it; 
 	 * passed directly into second method.
 	 * also could use null value for this object, but is better in the long 
 	 * term to use a mocked object in case method functionality should be
@@ -20,10 +22,14 @@ public class MessangerTest {
 	 */
 	Template template = mock(Template.class);
 	
+	/*
+	 * MOCK - a mock can act as a spy and vice versa, no real difference. In this case, 
+	 * when needed in @Before to simulate getEmail() method
+	 */
 	Client client = mock(Client.class);
 	
 	/*
-	 * STUB mock - indirect input of the class, used to pass value into the class
+	 * STUB - indirect input of the class, used to pass value into the class
 	 * which is then used (to send email)
 	 */
 	TemplateEngine templateEngine = mock(TemplateEngine.class);
@@ -36,8 +42,8 @@ public class MessangerTest {
 	
 	@Before
 	public void setup() {
-		when(templateEngine.prepareMessage(template, client)).thenReturn("... mesage contents...");
-		when(client.getEmail()).thenReturn("me@mail.com");
+		when(templateEngine.prepareMessage(template, client)).thenReturn(MESAGE_CONTENTS);
+		when(client.getEmail()).thenReturn(CLIENT_EMAIL);
 	}
 	
 	@Test
@@ -47,7 +53,7 @@ public class MessangerTest {
 		
 		messenger.sendMessage(client, template);
 		
-		verify(mailServer).send("me@mail.com", "... mesage contents...");
+		verify(mailServer).send(CLIENT_EMAIL, MESAGE_CONTENTS);
 	}
 	
 }

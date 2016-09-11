@@ -44,4 +44,14 @@ public class RaceResultsServiceTest {
 		verify(clientA).receive(message);
 		verify(clientB).receive(message);
 	}
+	
+	@Test
+	public void testSendOnlyOneMessageToMultiSubscriber() {
+		
+		raceResults.addSubscriber(clientA);
+		raceResults.addSubscriber(clientA);
+		raceResults.send(message);
+		
+		verify(clientA).receive(message);
+	}
 }

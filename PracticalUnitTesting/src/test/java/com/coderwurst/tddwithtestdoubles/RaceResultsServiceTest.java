@@ -52,6 +52,15 @@ public class RaceResultsServiceTest {
 		raceResults.addSubscriber(clientA);
 		raceResults.send(message);
 		
-		verify(clientA).receive(message);
+		verify(clientA).receive(message);		// default will test for one occurrence
+	}
+	
+	@Test
+	public void testRemoveSubscriber() {
+		raceResults.addSubscriber(clientA);
+		raceResults.removeSubscriber(clientA);
+		raceResults.send(message);
+		
+		verify(clientA, never()).receive(message);
 	}
 }

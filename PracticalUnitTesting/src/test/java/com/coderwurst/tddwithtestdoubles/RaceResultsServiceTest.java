@@ -2,6 +2,7 @@ package com.coderwurst.tddwithtestdoubles;
 
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.never;
 
 import org.junit.Test;
 
@@ -14,6 +15,15 @@ public class RaceResultsServiceTest {
 	Client clientA = mock(Client.class);				// behavior is verified (line 22) therefore test spy
 	Client clientB = mock(Client.class, "client b");
 	Message message = mock(Message.class);			// used in test but nothing verified - dummy
+	
+	@Test
+	public void testMessageShouldNotBeSentToUnsubscribedSubscribers() {
+
+		raceResults.send(message);
+		
+		verify(clientA, never()).receive(message);
+		verify(clientB, never()).receive(message);
+	}
 	
 	@Test
 	public void testSubscribedClientShouldReceiveMessage() {

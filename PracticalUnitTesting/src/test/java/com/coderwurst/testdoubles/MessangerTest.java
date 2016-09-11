@@ -11,7 +11,7 @@ import org.junit.Test;
 public class MessangerTest {
 	
 	private static final String CLIENT_EMAIL = "me@mail.com";
-	private static final String MESAGE_CONTENTS = "... mesage contents...";
+	private static final String MESAGE_CONTENTS = "... message contents...";
 
 	/* 
 	 * DUMMY - needed as a param but no other action carried out on it; 

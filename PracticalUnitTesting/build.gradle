@@ -24,6 +24,8 @@ dependencies {
     
     // https://mvnrepository.com/artifact/pl.pragmatists/JUnitParams
 	compile group: 'pl.pragmatists', name: 'JUnitParams', version: '0.3.6'
+	// https://mvnrepository.com/artifact/org.mockito/mockito-all
+	compile group: 'org.mockito', name: 'mockito-all', version: '1.8.4'
 
     
 
